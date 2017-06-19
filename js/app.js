@@ -1,4 +1,5 @@
 // first goal: display a list with location names using Knockout.js (add the map later)
+// hard coded Array of location objects
 var locations = [
         {
             name: 'wholefoods', 
@@ -26,18 +27,33 @@ var locations = [
             lng: -122.2701297
         },
     ];
-	// template for future places
-	/*{
-		name: '',
-		address: '',
-		lat: ,
-		lng: ,
-		info: '',
-		tags: ['']
-	}*/
 
+function initMap() {
 
-// hard coded Array of location objects
+    
+	
+         // Constructor creates a new map - only center and zoom are required.
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 37.813331, lng: -122.261801},
+          zoom: 13,
+          /*styles: styles,*/
+          mapTypeControl: false
+        });
+};
+        
+
+var AppViewModel = function () {
+    var self = this;
+        self.markers = ko.observableArray([]);
+        self.allLocations = ko.observableArray(locations);
+         
+    self.filter =  ko.observable("");
+    self.search = ko.observable("");
+};
+
+ var appViewModel = new AppViewModel();
+ ko.applyBindings(appViewModel);
+
 // https://github.com/udacity/ud864/blob/master/Project_Code_5_BeingStylish.html#L150
 
 // initMap function (later)
