@@ -66,7 +66,7 @@ var largeInfowindow = new google.maps.InfoWindow();
           marker.addListener('mouseout', function() {
             this.setIcon(defaultIcon);
           });
-        }
+        };
 
 // This function populates the infowindow when the marker is clicked. We'll only allow
       // one infowindow which will open at the marker that is clicked, and populate based
@@ -92,7 +92,7 @@ var largeInfowindow = new google.maps.InfoWindow();
           bounds.extend(markers[i].position);
         }
         map.fitBounds(bounds);
-      };
+      };};
 
 function initMap() {
     var styles = [{
@@ -287,7 +287,7 @@ var AppViewModel = function() {
 };
 
 var appViewModel = new AppViewModel();
-ko.applyBindings(appViewModel);
+ko.applyBindings(appViewModel);};
 
 // https://github.com/udacity/ud864/blob/master/Project_Code_5_BeingStylish.html#L150
 
