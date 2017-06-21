@@ -38,17 +38,7 @@ var markers = [];
 var largeInfowindow = new google.maps.InfoWindow();
 
 function initMap() {
-    // Constructor creates a new map - only center and zoom are required.
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {
-            lat: 37.813331,
-            lng: -122.261801
-        },
-        zoom: 13,
-        styles: styles,
-        mapTypeControl: false
-    });
-    
+     
     
 
     var styles = [{
@@ -193,6 +183,16 @@ function initMap() {
             color: '#92998d'
         }]
     }];
+    // Constructor creates a new map - only center and zoom are required.
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {
+            lat: 37.813331,
+            lng: -122.261801
+        },
+        zoom: 13,
+        styles: styles,
+        mapTypeControl: false
+    });
 
     // The following group uses the location array to create an array of markers on initialize.
     for (var i = 0; i < locations.length; i++) {
