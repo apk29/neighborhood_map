@@ -24,7 +24,7 @@ html,
 
       #hide-listings,
       #show-listings {
-        width: 48%;
+        width: 100%;
       }
 
       hr {
@@ -36,8 +36,8 @@ html,
 
       #map {
         bottom:0px;
-        height: 100%;
-        left: 362px;
+        height: 99%;
+        left: 300px;
         position: absolute;
         right: 0px;
       }
