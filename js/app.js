@@ -36,9 +36,9 @@ var locations = [{
 
 var markers = [];
 
+// initMap function 
 function initMap() {
      
-    
     var styles = [{
         elementType: 'geometry',
         stylers: [{
@@ -180,7 +180,7 @@ function initMap() {
         stylers: [{
             color: '#92998d'
         }]
-    }];
+    }]; 
     // Constructor creates a new map - only center and zoom are required.
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
@@ -191,6 +191,8 @@ function initMap() {
         styles: styles,
         mapTypeControl: false
     });
+
+    //creat window that will be used to populate window content
     var largeInfowindow = new google.maps.InfoWindow();    
     // The following group uses the location array to create an array of markers on initialize.
     for (var i = 0; i < locations.length; i++) {
@@ -233,6 +235,7 @@ function initMap() {
             });
         //drops markers onto map on load
         showListings();
+
         // This function populates the infowindow when the marker is clicked. We'll only allow
         // one infowindow which will open at the marker that is clicked, and populate based
         // on that markers position.
@@ -240,15 +243,13 @@ function initMap() {
             // Check to make sure the infowindow is not already opened on this marker.
             if (infowindow.marker != marker) {
                 // Clear the infowindow content to give the streetview time to load.
-                infowindow.setContent('');
-                infowindow.open(map, marker);
+                infowindow.setContent('<div>' + marker.title + '</div>');
                 infowindow.marker = marker;
                 // Make sure the marker property is cleared if the infowindow is closed.
                 infowindow.addListener('closeclick', function() {
                     infowindow.marker = null;
                 });
-
-
+                infowindow.open(map, marker);
             };
             
             document.getElementById('show-listings').addEventListener('click', showListings);
@@ -306,11 +307,6 @@ function initMap() {
     var appViewModel = new AppViewModel();
     ko.applyBindings(appViewModel);
 };
-
-// https://github.com/udacity/ud864/blob/master/Project_Code_5_BeingStylish.html#L150
-
-// initMap function (later)
-// https://developers.google.com/maps/documentation/javascript/examples/map-simple
 
 // Location constructor similiar to the Cat constructor form the JavaScript Design Patterns course (optional)
 
