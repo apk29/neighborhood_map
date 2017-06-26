@@ -1,4 +1,40 @@
-
+var locations = [{
+    name: 'Wholefoods',
+    location: {
+        lat: 37.812570,
+        lng: -122.260909
+    }, 
+    isShown: ko.observable(true)
+}, {
+    name: 'Lake Chalet',
+    location: {
+        lat: 37.802232,
+        lng: -122.261591
+    }, 
+    isShown: ko.observable(true)
+}, {
+    name: 'Oakland Chinatown',
+    location: {
+        lat: 37.798560,
+        lng: -122.269270
+    }, 
+    isShown: ko.observable(true)
+}, {
+    name: 'Fox Theater',
+    location: {
+        lat: 37.808117,
+        lng: -122.269768
+    }, 
+    isShown: ko.observable(true)
+}, {
+    name: 'Great Western Power Company',
+    location: {
+        lat: 37.809787,
+        lng: -122.2701297
+    }, 
+   }, 
+];
+    
     
     var styles = [{
         elementType: 'geometry',
@@ -141,5 +177,4 @@
         stylers: [{
             color: '#92998d'
         }]
-    }]; 
-    
+    }];
