@@ -123,50 +123,47 @@ function initMap() {
         }
     };
 
-    var List = function(data) {
-        var self = this;
-        this.name = data.name;
-        this.location = data.location;
+};
+var List = function(data) {
+    var self = this;
+    this.name = data.name;
+    this.location = data.location;
+    this.visible = ko.observable(true);
+};
+var AppViewModel = function() {
+    var self = this;
 
-    };
+    this.markers = ko.observableArray([]);
+    this.allLocations = ko.observableArray();
+    self.myList = ko.observable("");
 
+    firstLocations.forEach(function(itemsLocation) {
+        self.allLocations.push(new List(itemsLocation));
+    });
 
-    var AppViewModel = function() {
-        var self = this;
-
-
-        this.allLocations = ko.observableArray();
-        this.markers = ko.observableArray([]);
-
-        self.myList = ko.observable("");
-
-        firstLocations.forEach(function(itemsLocation) {
-            self.allLocations.push(new List(itemsLocation));
-        });
-
-        this.searches = ko.computed(function() {
-            var filter = self.myList().toLowerCase();
-            if (!filter) {
-                self.allLocations().forEach(function(itemsLocation) {
-                    itemsLocation.visible(true);
-                });
-                return self.allLocations();
-            } else {
-                return ko.utils.arrayFilter(self.allLocations(), function(allLocations) {
-                    var string = itemsLocation.name.toLowerCase();
-                    var result = (string.search(filter) >= 0);
-                    itemsLocation.visible(result);
-                    return result;
-                });
-            }
-        }, self);
-
-
-        self.clickMarker = function(location) {
-            console.log(location);
-            google.maps.event.trigger(location.marker, 'click');
+    this.searches = ko.computed(function() {
+        var filter = self.myList().toLowerCase();
+        if (!filter) {
+            self.allLocations().forEach(function(itemsLocation) {
+                itemsLocation.visible(true);
+            });
+            return self.allLocations();
+        } else {
+            return ko.utils.arrayFilter(self.allLocations(), function(itemsLocation) {
+                var string = itemsLocation.name.toLowerCase();
+                var result = (string.search(filter) >= 0);
+                itemsLocation.visible(result);
+                return result;
+            });
         }
+
+    }, self);
+
+    this.clickMarker = function(location) {
+        /*console.log(location);*/
+        google.maps.event.trigger(location.marker, 'click');
     };
+
 };
 
 appViewModel = new AppViewModel();
