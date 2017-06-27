@@ -22,11 +22,11 @@ function initMap() {
     //creat window that will be used to populate window content
     var largeInfowindow = new google.maps.InfoWindow();    
     // The following group uses the location array to create an array of markers on initialize.
-    for (var i = 0; i < locations.length; i++) {
+    for (var i = 0; i < firstLocations.length; i++) {
         // Get the position from the location array.
-        var position = locations[i].location;
+        var position = firsstLocations[i].location;
         //Get title from the locatons array
-        var title = locations[i].name;
+        var title = firstLocations[i].name;
         // Create a marker per location, and put into markers array.
         var marker = new google.maps.Marker({
             position: position,
@@ -46,8 +46,8 @@ function initMap() {
         highlightedIcon = makeMarkerIcon('FFFF24');
         
         // Push the marker to our array of markers.
-      markers.push(marker);
-        locations[i].marker = marker;
+        markers.push(marker);
+        firstLocations[i].marker = marker;
         // Create an onclick event to open the large infowindow at each marker.
         marker.addListener('click', function() {
             populateInfoWindow(this, largeInfowindow);
@@ -66,7 +66,7 @@ function initMap() {
         // This function populates the infowindow when the marker is clicked. We'll only allow
         // one infowindow which will open at the marker that is clicked, and populate based
         // on that markers position.
-    }
+    };
 
     appViewModel = new AppViewModel();
     ko.applyBindings(appViewModel);
@@ -145,7 +145,7 @@ var AppViewModel = function() {
 
     self.myList = ko.observable("");
     self.search = ko.computed(function() {
-      var filter = self.myList;
+      var filter = self.myList().toLowerCase();
       if(!filter) {self.allLocations().forEach(function(itemsLocation){
         itemsLocation.visible(true)
       })};
@@ -157,6 +157,7 @@ var AppViewModel = function() {
       google.maps.event.trigger(location.marker,'click');
     }
 };};
+
 // Location constructor similiar to the Cat constructor form the JavaScript Design Patterns course (optional)
 
 // ViewModel constructor
