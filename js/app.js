@@ -87,7 +87,7 @@ function populateInfoWindow(marker, infowindow) {
     
     document.getElementById('show-listings').addEventListener('click', showListings);
     document.getElementById('hide-listings').addEventListener('click', hideListings);
-}
+};
 // This function takes in a COLOR, and then creates a new marker
 // icon of that color. The icon will be 21 px wide by 34 high, have an origin
 // of 0, 0 and be anchored at 10, 34).
@@ -125,7 +125,7 @@ function hideMarkers(markers) {
 for (var i = 0; i < markers.length; i++) {
   markers[i].setMap(null);
 }
-}
+};
 
 var List = function(data) {
     var self = this;
@@ -156,7 +156,7 @@ var AppViewModel = function() {
       console.log(location);
       google.maps.event.trigger(location.marker,'click');
     }
-};
+};};
 // Location constructor similiar to the Cat constructor form the JavaScript Design Patterns course (optional)
 
 // ViewModel constructor
