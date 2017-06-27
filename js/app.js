@@ -1,14 +1,12 @@
 // first goal: display a list with location names using Knockout.js (add the map later)
 // hard coded Array of location objects
 // Create a new blank array for all the listing markers.
-
-
 var markers = [];
 var appViewModel;
 // initMap function 
 function initMap() {
-     
-     // Constructor creates a new map - only center and zoom are required.
+
+    // Constructor creates a new map - only center and zoom are required.
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
             lat: 37.813331,
@@ -20,7 +18,7 @@ function initMap() {
     });
 
     //creat window that will be used to populate window content
-    var largeInfowindow = new google.maps.InfoWindow();    
+    var largeInfowindow = new google.maps.InfoWindow();
     // The following group uses the location array to create an array of markers on initialize.
     for (var i = 0; i < firstLocations.length; i++) {
         // Get the position from the location array.
@@ -35,7 +33,7 @@ function initMap() {
             icon: defaultIcon,
             id: i
         });
-        
+
         // Style the markers a bit. This will be our listing marker icon.
         var defaultIcon = makeMarkerIcon('0091ff');
 
@@ -44,7 +42,7 @@ function initMap() {
         var highlightedIcon;
 
         highlightedIcon = makeMarkerIcon('FFFF24');
-        
+
         // Push the marker to our array of markers.
         markers.push(marker);
         firstLocations[i].marker = marker;
@@ -53,13 +51,13 @@ function initMap() {
             populateInfoWindow(this, largeInfowindow);
         });
         // Two event listeners - one for mouseover, one for mouseout,
-            // to change the colors back and forth.
+        // to change the colors back and forth.
         marker.addListener('mouseover', function() {
-                this.setIcon(highlightedIcon);
-            });
+            this.setIcon(highlightedIcon);
+        });
         marker.addListener('mouseout', function() {
-                this.setIcon(defaultIcon);
-            });
+            this.setIcon(defaultIcon);
+        });
         //drops markers onto map on load
         showListings();
 
@@ -70,94 +68,109 @@ function initMap() {
 
 
 
-function populateInfoWindow(marker, infowindow) {
-    // Check to make sure the infowindow is not already opened on this marker.
-    if (infowindow.marker != marker) {
-        // Clear the infowindow content to give the streetview time to load.
-        infowindow.setContent('<div>' + marker.title + '</div>');
-        infowindow.marker = marker;
-        // Make sure the marker property is cleared if the infowindow is closed.
-        infowindow.addListener('closeclick', function() {
-            infowindow.marker = null;
-        });
-        infowindow.open(map, marker);
+    function populateInfoWindow(marker, infowindow) {
+        // Check to make sure the infowindow is not already opened on this marker.
+        if (infowindow.marker != marker) {
+            // Clear the infowindow content to give the streetview time to load.
+            infowindow.setContent('<div>' + marker.title + '</div>');
+            infowindow.marker = marker;
+            // Make sure the marker property is cleared if the infowindow is closed.
+            infowindow.addListener('closeclick', function() {
+                infowindow.marker = null;
+            });
+            infowindow.open(map, marker);
+        };
+
+        document.getElementById('show-listings').addEventListener('click', showListings);
+        document.getElementById('hide-listings').addEventListener('click', hideListings);
     };
-    
-    document.getElementById('show-listings').addEventListener('click', showListings);
-    document.getElementById('hide-listings').addEventListener('click', hideListings);
+    // This function takes in a COLOR, and then creates a new marker
+    // icon of that color. The icon will be 21 px wide by 34 high, have an origin
+    // of 0, 0 and be anchored at 10, 34).
+    function makeMarkerIcon(markerColor) {
+        var markerImage = new google.maps.MarkerImage(
+            'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor +
+            '|40|_|%E2%80%A2',
+            new google.maps.Size(21, 34),
+            new google.maps.Point(0, 0),
+            new google.maps.Point(10, 34),
+            new google.maps.Size(21, 34));
+        return markerImage;
+    };
+
+    // This function will loop through the markers array and display them all.
+    function showListings() {
+        var bounds = new google.maps.LatLngBounds();
+        // Extend the boundaries of the map for each marker and display the marker
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(map);
+            bounds.extend(markers[i].position);
+        }
+        map.fitBounds(bounds);
+    };
+
+    // This function will loop through the listings and hide them all.
+    function hideListings() {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+        }
+    };
+
+    // This function will loop through the listings and hide them all.
+    function hideMarkers(markers) {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+        }
+    };
+
+    var List = function(data) {
+        var self = this;
+        this.name = data.name;
+        this.location = data.location;
+
+    };
+
+
+    var AppViewModel = function() {
+        var self = this;
+
+
+        this.allLocations = ko.observableArray();
+        this.markers = ko.observableArray([]);
+
+        self.myList = ko.observable("");
+
+        firstLocations.forEach(function(itemsLocation) {
+            self.allLocations.push(new List(itemsLocation));
+        });
+
+        this.searches = ko.computed(function() {
+            var filter = self.myList().toLowerCase();
+            if (!filter) {
+                self.allLocations().forEach(function(itemsLocation) {
+                    itemsLocation.visible(true);
+                });
+                return self.allLocations();
+            } else {
+                return ko.utils.arrayFilter(self.allLocations(), function(allLocations) {
+                    var string = itemsLocation.name.toLowerCase();
+                    var result = (string.search(filter) >= 0);
+                    itemsLocation.visible(result);
+                    return result;
+                });
+            }
+        }, self);
+
+
+        self.clickMarker = function(location) {
+            console.log(location);
+            google.maps.event.trigger(location.marker, 'click');
+        }
+    };
 };
-// This function takes in a COLOR, and then creates a new marker
-// icon of that color. The icon will be 21 px wide by 34 high, have an origin
-// of 0, 0 and be anchored at 10, 34).
-function makeMarkerIcon(markerColor) {
-    var markerImage = new google.maps.MarkerImage(
-        'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor +
-        '|40|_|%E2%80%A2',
-        new google.maps.Size(21, 34),
-        new google.maps.Point(0, 0),
-        new google.maps.Point(10, 34),
-        new google.maps.Size(21, 34));
-    return markerImage;
-};
 
-// This function will loop through the markers array and display them all.
-function showListings() {
-    var bounds = new google.maps.LatLngBounds();
-    // Extend the boundaries of the map for each marker and display the marker
-    for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(map);
-        bounds.extend(markers[i].position);
-    }
-    map.fitBounds(bounds);
-};
-
-// This function will loop through the listings and hide them all.
-function hideListings() {
-for (var i = 0; i < markers.length; i++) {
-  markers[i].setMap(null);
-}
-};
-
-// This function will loop through the listings and hide them all.
-function hideMarkers(markers) {
-for (var i = 0; i < markers.length; i++) {
-  markers[i].setMap(null);
-}
-};
-
-var List = function(data) {
-    var self = this;
-    this.name = data.name;
-};
-
-    
-var AppViewModel = function() {
-    var self = this;
-    
-    firstLocations.forEach(function(itemsLocation){
-    self.allLocations.push(new List(itemsLocation));
-});
-
-    self.allLocations = ko.observableArray();
-    self.markers = ko.observableArray([]);
-
-    self.myList = ko.observable("");
-    self.search = ko.computed(function() {
-      var filter = self.myList().toLowerCase();
-      if(!filter) {self.allLocations().forEach(function(itemsLocation){
-        itemsLocation.visible(true)
-      })};
-      
-    });
-    
-    self.clickMarker = function(location) {
-      console.log(location);
-      google.maps.event.trigger(location.marker,'click');
-    }
-};};
-	
-    appViewModel = new AppViewModel();
-    ko.applyBindings(appViewModel);
+appViewModel = new AppViewModel();
+ko.applyBindings(appViewModel);
 // Location constructor similiar to the Cat constructor form the JavaScript Design Patterns course (optional)
 
 // ViewModel constructor
