@@ -68,8 +68,6 @@ function initMap() {
         // on that markers position.
     };
 
-    appViewModel = new AppViewModel();
-    ko.applyBindings(appViewModel);
 
 
 function populateInfoWindow(marker, infowindow) {
@@ -157,7 +155,9 @@ var AppViewModel = function() {
       google.maps.event.trigger(location.marker,'click');
     }
 };};
-
+	
+    appViewModel = new AppViewModel();
+    ko.applyBindings(appViewModel);
 // Location constructor similiar to the Cat constructor form the JavaScript Design Patterns course (optional)
 
 // ViewModel constructor

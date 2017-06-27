@@ -1,4 +1,4 @@
-var locations = [{
+var firstLocations = [{
     name: 'Wholefoods',
     location: {
         lat: 37.812570,
