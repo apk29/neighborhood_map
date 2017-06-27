@@ -24,7 +24,7 @@ function initMap() {
     // The following group uses the location array to create an array of markers on initialize.
     for (var i = 0; i < firstLocations.length; i++) {
         // Get the position from the location array.
-        var position = firsstLocations[i].location;
+        var position = firstLocations[i].location;
         //Get title from the locatons array
         var title = firstLocations[i].name;
         // Create a marker per location, and put into markers array.
