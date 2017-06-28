@@ -13,7 +13,7 @@
          <div class="col-md-2" id="left column">
             <input class="search-info" id="search-info" data-bind="textInput: myList, valueUpdate: 'afterkeydown'" placeholder="Search">
             <ul class="listings" id= "listings" data-bind="foreach: searches">
-               <li data-bind="text: name, click: $root.clickMarker, visible: visible"></li>
+               <li data-bind="text: name, click: $parent.clickMarker, visible: visible"></li>
             </ul>
             <input id="show-listings" type="button" value="Show Listings">
             <input id="hide-listings" type="button" value="Hide Listings">

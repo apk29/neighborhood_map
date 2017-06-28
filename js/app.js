@@ -25,10 +25,12 @@ function initMap() {
         var position = firstLocations[i].location;
         //Get title from the locatons array
         var title = firstLocations[i].name;
+        var locations = firstLocations[i].location;
         // Create a marker per location, and put into markers array.
         var marker = new google.maps.Marker({
             position: position,
             title: title,
+            map: map,
             animation: google.maps.Animation.DROP,
             icon: defaultIcon,
             id: i
@@ -45,7 +47,7 @@ function initMap() {
 
         // Push the marker to our array of markers.
         markers.push(marker);
-        firstLocations[i].marker = marker;
+        appViewModel.allLocations()[i].marker = marker;
         // Create an onclick event to open the large infowindow at each marker.
         marker.addListener('click', function() {
             populateInfoWindow(this, largeInfowindow);
@@ -159,9 +161,9 @@ var AppViewModel = function() {
 
     }, self);
 
-    this.clickMarker = function(location) {
+    this.clickMarker = function(locations) {
         /*console.log(location);*/
-        google.maps.event.trigger(location.marker, 'click');
+        google.maps.event.trigger(locations.marker, 'click');
     };
 
 };
