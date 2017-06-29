@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-      <title>Oakland Neighborhood Map</title>
-      <link rel="stylesheet" href="css/style.css">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-   </head>
-   <body>
-      <div class="container-fluid" id="container">
-      <div class="row">
-         <div class="col-md-2" id="left column">
-            <input class="search-info" id="search-info" data-bind="textInput: myList, valueUpdate: 'afterkeydown'" placeholder="Search">
-            <ul class="listings" id= "listings" data-bind="foreach: searches">
-               <li data-bind="text: name, click: $parent.clickMarker, visible: visible"></li>
-            </ul>
-            <input id="show-listings" type="button" value="Show Listings">
-            <input id="hide-listings" type="button" value="Hide Listings">
-         </div>
-         <div class="col-md-10" id="map">
-         </div>
-      </div>
-      <!-- List view showing location names -->
-      <!-- http://knockoutjs.com/documentation/foreach-binding.html -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
-      <script src="js/data.js"></script>
-      <script src="js/app.js"></script>
-      <!-- Load google maps API
-         https://developers.google.com/maps/documentation/javascript/examples/map-simple -->
-      <script async defer src="https://maps.googleapis.com/maps/api/js?AIzaSyCBACLb_mJpNoKdgINrylBhe6TrtQbBedA&libraries=places,drawing,geometry&v=3&callback=initMap"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-   </body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>Oakland Neighborhood Map</title>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container-fluid" id="container">
+        <div class="row">
+            <div class="col-md-2" id="left column">
+                <input class="search-info" id="search-info" data-bind="textInput: myList, valueUpdate: 'afterkeydown'" placeholder="Search">
+                <ul class="listings" id= "listings" data-bind="foreach: searches">
+                    <li data-bind="text: name, click: $parent.clickMarker, visible: visible"></li>
+                </ul>
+                <input id="show-listings" type="button" value="Show Listings">
+                <input id="hide-listings" type="button" value="Hide Listings">
+            </div>
+            <div class="col-md-10" id="map">
+            </div>
+        </div>
+        <!-- List view showing location names -->
+        <!-- http://knockoutjs.com/documentation/foreach-binding.html -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+        <script src="js/data.js"></script>
+        <script src="js/app.js"></script>
+        <!-- Load google maps API
+            https://developers.google.com/maps/documentation/javascript/examples/map-simple -->
+        <script async defer src="https://maps.googleapis.com/maps/api/js?AIzaSyCBACLb_mJpNoKdgINrylBhe6TrtQbBedA&libraries=places,drawing,geometry&v=3&callback=initMap"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    </body>
 </html>

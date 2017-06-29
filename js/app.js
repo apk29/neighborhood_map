@@ -25,7 +25,7 @@ function initMap() {
         var position = firstLocations[i].location;
         //Get title from the locatons array
         var title = firstLocations[i].name;
-        var locations = firstLocations[i].location;
+        
         // Create a marker per location, and put into markers array.
         var marker = new google.maps.Marker({
             position: position,
@@ -41,9 +41,8 @@ function initMap() {
 
         // Create a "highlighted location" marker color for when the user
         // mouses over the marker.
-        var highlightedIcon;
-
-        highlightedIcon = makeMarkerIcon('FFFF24');
+        
+        var highlightedIcon = makeMarkerIcon('FFFF24');
 
         // Push the marker to our array of markers.
         markers.push(marker);
@@ -67,8 +66,6 @@ function initMap() {
         // one infowindow which will open at the marker that is clicked, and populate based
         // on that markers position.
     };
-
-
 
     function populateInfoWindow(marker, infowindow) {
         // Check to make sure the infowindow is not already opened on this marker.
@@ -161,9 +158,9 @@ var AppViewModel = function() {
 
     }, self);
 
-    this.clickMarker = function(locations) {
+    this.clickMarker = function(position) {
         /*console.log(location);*/
-        google.maps.event.trigger(locations.marker, 'click');
+        google.maps.event.trigger(position.marker, 'click');
     };
 
 };
