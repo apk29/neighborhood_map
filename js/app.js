@@ -25,7 +25,7 @@ function initMap() {
         var position = firstLocations[i].location;
         //Get title from the locatons array
         var title = firstLocations[i].name;
-        
+
         // Create a marker per location, and put into markers array.
         var marker = new google.maps.Marker({
             position: position,
@@ -41,7 +41,7 @@ function initMap() {
 
         // Create a "highlighted location" marker color for when the user
         // mouses over the marker.
-        
+
         var highlightedIcon = makeMarkerIcon('FFFF24');
 
         // Push the marker to our array of markers.
@@ -50,6 +50,7 @@ function initMap() {
         // Create an onclick event to open the large infowindow at each marker.
         marker.addListener('click', function() {
             populateInfoWindow(this, largeInfowindow);
+            largeInfowindow.setContent(contentString);
         });
         // Two event listeners - one for mouseover, one for mouseout,
         // to change the colors back and forth.
@@ -60,6 +61,7 @@ function initMap() {
             this.setIcon(defaultIcon);
         });
         //drops markers onto map on load
+
         showListings();
 
         // This function populates the infowindow when the marker is clicked. We'll only allow
@@ -71,8 +73,13 @@ function initMap() {
         // Check to make sure the infowindow is not already opened on this marker.
         if (infowindow.marker != marker) {
             // Clear the infowindow content to give the streetview time to load.
-            infowindow.setContent('<div>' + marker.title + '</div>');
             infowindow.marker = marker;
+            infowindow.setContent('<div>' + marker.title + '</div>' + marker.contentString);
+            // sets animation to bounce 2 times when marker is clicked
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                    setTimeout(function() {
+                    marker.setAnimation(null);
+                    }, 2000);      
             // Make sure the marker property is cleared if the infowindow is closed.
             infowindow.addListener('closeclick', function() {
                 infowindow.marker = null;
@@ -122,7 +129,60 @@ function initMap() {
         }
     };
 
+
+
+    // foursquare client-id and client-secret
+    var client_id = "2EVZTFM14QJ2T5M12PCFPIZS5Z5HYWPOM3RY5COEUZPGNDRK";
+    var client_secret = "G1IG5LPMZLDDA2A24LGVOZIG5JU3JXDGB5KWACGHDS5WGTKK";
+
+    // foursquare api url
+    var foursquareUrl = "https://api.foursquare.com/v2/venues/search";
+    // + marker.position.lat() + "," + marker.position.lng();
+    // creating variables outside of the for ajax request for faster loading
+
+    var venue, address, category, foursquareId, contentString;
+
+    // ajax request - foursquare api data (https://developer.foursquare.com/docs/)
+    $.ajax({
+        //  type: 'GET',
+        url: foursquareUrl,
+        dataType: "json",
+        data: {
+            client_id: client_id,
+            client_secret: client_secret,
+            query: marker.title,
+            near: "Oakland, California",
+            v: 20170630
+        },
+        success: function(data) {
+            // get venue info
+            venue = data.response.venues[0];
+            // get venue address info
+            address = venue.location.formattedAddress[0];
+            // get venue category info
+            category = venue.categories[0].name;
+            // gets link of place
+            foursquareId = "https://foursquare.com/v/" + venue.id;
+            // populates infowindow with api info
+            
+            contentString = "<div class='name'>" + "Name: " + "<span class='info'>" + title + "</span></div>" +
+                "<div class='category'>" + "Catergory: " + "<span class='info'>" + category + "</span></div>" +
+                "<div class='address'>" + "Location: " + "<span class='info'>" + address + "</span></div>" +
+                "<div class='information'>" + "More info: " + "<a href='" + foursquareId + "'>" + "Click here" + "</a></div>";
+
+            marker.contentString;
+        },
+        error: function() {
+            contentString = "<div class='name'>Data is currently not available. Please try again.</div>";
+        }
+    });
+
+    function mapError() {
+        alert("Map could not be loaded at this moment. Please try again");
+    }
 };
+
+//Location Constructor function
 var List = function(data) {
     var self = this;
     this.name = data.name;

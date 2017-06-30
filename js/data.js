@@ -8,14 +8,14 @@ var firstLocations = [{
     }, 
     isShown: ko.observable(true)
 }, {
-    name: 'Lake Chalet',
+    name: 'The Lake Chalet Seafood Bar & Grill',
     location: {
         lat: 37.802232,
         lng: -122.261591
     }, 
     isShown: ko.observable(true)
 }, {
-    name: 'Oakland Chinatown',
+    name: 'Chinatown',
     location: {
         lat: 37.798560,
         lng: -122.269270
