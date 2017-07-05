@@ -134,51 +134,29 @@ function initMap() {
     // foursquare client-id and client-secret
     var client_id = "2EVZTFM14QJ2T5M12PCFPIZS5Z5HYWPOM3RY5COEUZPGNDRK";
     var client_secret = "G1IG5LPMZLDDA2A24LGVOZIG5JU3JXDGB5KWACGHDS5WGTKK";
-
-    // foursquare api url
-    var foursquareUrl = "https://api.foursquare.com/v2/venues/search";
-    var venue, address, category, foursquareId, contentString;
-
-    // ajax request - foursquare api data (https://developer.foursquare.com/docs/)
-    $.ajax({
-        //  type: 'GET',
-        url: foursquareUrl,
-        dataType: "json",
-        data: {
-            client_id: client_id,
-            client_secret: client_secret,
-            query: marker.title,
-            near: "Oakland, California",
-            v: 20170630
-        },
-        success: function(data) {
-            // get venue info
-            venue = data.response.venues[i];
-            // get venue address info
-            address = venue.location.formattedAddress[i];
-            // get venue category info
-            category = venue.categories[i].name;
-            // gets link of place
-            foursquareId = "https://foursquare.com/v/" + venue.id;
-            // populates infowindow with api info
-            if(markers.length === 0){
-            for(var i = 0; i < venue.length; i++){
-            contentString = "<div class='name'>" + "<span class='info'>" + title + "</span></div>" +
-                "<div class='category'>"  + "<span class='info'>" + category + "</span></div>" +
-                "<div class='address'>" + "<span class='info'>" + address + "</span></div>" +
-                "<div class='information'>" + "More info: " + "<a href='" + foursquareId + "'>" + "Click me" + "</a></div>";
-
-            marker.contentString;
-        }};
-        },
-        error: function() {
-            contentString = "<div class='name'>Data is currently not available. Please try again.</div>";
-        }
-    });
-
-    function mapError() {
-        alert("Map could not be loaded at this moment. Please try again");
-    }
+    var foursquareUrl = "https://api.foursquare.com/v2/venues/search" +
+            "?client_id=" + client_id +
+            "&client_secret=" + client_secret +
+            "&v=20160815" +
+            "&ll=" + 37.813331 + "," + -122.261801;
+            $.ajax({
+                url: foursquareUrl,
+                dataType: "json"
+            }).done(function(data) {
+                var venues = data.response.venues;
+                if(markers.length === 0){
+                    for(var i = 0; i < venues.length; i++){
+                      var contentString = '<div><h5>'+ venues[i].name + '</h5><br><div>' + venues[i].location.formattedAddress + '</div><br><div>'+ venues[i].contact.formattedPhone + '</div><br><div> FourSquare Check Ins: ' + venues[i].stats.checkinsCount + ' Users Visitied: ' + venues[i].stats.usersCount + '</div></div>';
+                            createMarkers( venues[i].name, venues[i].location, contentString);
+                      animateMarker(marker);
+                    }
+                }
+            }).fail(function(){
+                for(var i = 0; i < firstLocations.length; i++){
+                    createMarkers(firstLocations.location[i], firstLocations.name[i])
+                }
+            })
+             
 };
 
 //Location Constructor function
@@ -229,20 +207,3 @@ var AppViewModel = function() {
 
 appViewModel = new AppViewModel();
 ko.applyBindings(appViewModel);
-// Location constructor similiar to the Cat constructor form the JavaScript Design Patterns course (optional)
-
-// ViewModel constructor
-// In the ViewmModel create an observableArray with location objects
-// http://knockoutjs.com/documentation/observables.html#mvvm-and-view-models
-// Separating Out the Model video lesson:
-// https://classroom.udacity.com/nanodegrees/nd001/parts/e87c34bf-a9c0-415f-b007-c2c2d7eead73/modules/271165859175461/lessons/3406489055/concepts/34284402380923
-// Adding More Cats video lesson
-// https://classroom.udacity.com/nanodegrees/nd001/parts/e87c34bf-a9c0-415f-b007-c2c2d7eead73/modules/271165859175461/lessons/3406489055/concepts/34648186930923
-
-// Instantiate the ViewModel
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new
-// The difference between defining the ViewModel as a function expression or defining the viewModel as an object literal:
-// https://discussions.udacity.com/t/text-not-updating-with-search-box/182886/6
-
-// Apply the bindings aka activate KO
-// http://knockoutjs.com/documentation/observables.html#mvvm-and-view-models#activating-knockout
