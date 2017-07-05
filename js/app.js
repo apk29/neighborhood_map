@@ -5,13 +5,10 @@ var markers = [];
 var appViewModel;
 // initMap function 
 function initMap() {
-
+    var Oakland = {lat: 37.813331, lng: -122.261801};
     // Constructor creates a new map - only center and zoom are required.
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {
-            lat: 37.813331,
-            lng: -122.261801
-        },
+        center: Oakland,
         zoom: 13,
         styles: styles,
         mapTypeControl: false
@@ -72,8 +69,10 @@ function initMap() {
     function populateInfoWindow(marker, infowindow) {
         // Check to make sure the infowindow is not already opened on this marker.
         if (infowindow.marker != marker) {
-            // Clear the infowindow content to give the streetview time to load.
+            
+            // Set to current marker
             infowindow.marker = marker;
+            
             infowindow.setContent('<div>' + marker.title + '</div>' + marker.contentString);
             // sets animation to bounce 2 times when marker is clicked
                     marker.setAnimation(google.maps.Animation.BOUNCE);
@@ -137,9 +136,6 @@ function initMap() {
 
     // foursquare api url
     var foursquareUrl = "https://api.foursquare.com/v2/venues/search";
-    // + marker.position.lat() + "," + marker.position.lng();
-    // creating variables outside of the for ajax request for faster loading
-
     var venue, address, category, foursquareId, contentString;
 
     // ajax request - foursquare api data (https://developer.foursquare.com/docs/)
@@ -164,13 +160,15 @@ function initMap() {
             // gets link of place
             foursquareId = "https://foursquare.com/v/" + venue.id;
             // populates infowindow with api info
-            
-            contentString = "<div class='name'>" + "Name: " + "<span class='info'>" + title + "</span></div>" +
-                "<div class='category'>" + "Catergory: " + "<span class='info'>" + category + "</span></div>" +
-                "<div class='address'>" + "Location: " + "<span class='info'>" + address + "</span></div>" +
-                "<div class='information'>" + "More info: " + "<a href='" + foursquareId + "'>" + "Click here" + "</a></div>";
+           /* if(markers.length === 0){
+            for(var i = 0; i < venue.length; i++){*/
+            contentString = "<div class='name'>" + "<span class='info'>" + title + "</span></div>" +
+                "<div class='category'>"  + "<span class='info'>" + category + "</span></div>" +
+                "<div class='address'>" + "<span class='info'>" + address + "</span></div>" +
+                "<div class='information'>" + "More info: " + "<a href='" + foursquareId + "'>" + "Click me" + "</a></div>";
 
             marker.contentString;
+        /*}};*/
         },
         error: function() {
             contentString = "<div class='name'>Data is currently not available. Please try again.</div>";
@@ -196,9 +194,12 @@ var AppViewModel = function() {
     this.allLocations = ko.observableArray();
     self.myList = ko.observable("");
 
-    firstLocations.forEach(function(itemsLocation) {
-        self.allLocations.push(new List(itemsLocation));
-    });
+    for (i = 0; i < firstLocations.length; i++){
+        var itemsLocation = new List(firstLocations[i]);
+        self.allLocations.push(itemsLocation);
+    
+    
+    };
 
     this.searches = ko.computed(function() {
         var filter = self.myList().toLowerCase();
