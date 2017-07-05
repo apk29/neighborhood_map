@@ -17,6 +17,7 @@ function initMap() {
     //creat window that will be used to populate window content
     var largeInfowindow = new google.maps.InfoWindow();
     // The following group uses the location array to create an array of markers on initialize.
+   
     for (var i = 0; i < firstLocations.length; i++) {
         // Get the position from the location array.
         var position = firstLocations[i].location;
@@ -47,7 +48,7 @@ function initMap() {
         // Create an onclick event to open the large infowindow at each marker.
         marker.addListener('click', function() {
             populateInfoWindow(this, largeInfowindow);
-            largeInfowindow.setContent(contentString);
+            largeInfowindow.setContent(this.contentString);
         });
         // Two event listeners - one for mouseover, one for mouseout,
         // to change the colors back and forth.
@@ -152,23 +153,23 @@ function initMap() {
         },
         success: function(data) {
             // get venue info
-            venue = data.response.venues[0];
+            venue = data.response.venues[i];
             // get venue address info
-            address = venue.location.formattedAddress[0];
+            address = venue.location.formattedAddress[i];
             // get venue category info
-            category = venue.categories[0].name;
+            category = venue.categories[i].name;
             // gets link of place
             foursquareId = "https://foursquare.com/v/" + venue.id;
             // populates infowindow with api info
-           /* if(markers.length === 0){
-            for(var i = 0; i < venue.length; i++){*/
+            if(markers.length === 0){
+            for(var i = 0; i < venue.length; i++){
             contentString = "<div class='name'>" + "<span class='info'>" + title + "</span></div>" +
                 "<div class='category'>"  + "<span class='info'>" + category + "</span></div>" +
                 "<div class='address'>" + "<span class='info'>" + address + "</span></div>" +
                 "<div class='information'>" + "More info: " + "<a href='" + foursquareId + "'>" + "Click me" + "</a></div>";
 
             marker.contentString;
-        /*}};*/
+        }};
         },
         error: function() {
             contentString = "<div class='name'>Data is currently not available. Please try again.</div>";
