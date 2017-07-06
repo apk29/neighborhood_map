@@ -5,10 +5,7 @@ var markers = [];
 var appViewModel;
 // initMap function 
 function initMap() {
-    var Oakland = {
-        lat: 37.813331,
-        lng: -122.261801
-    };
+    var Oakland = {lat: 37.813331, lng: -122.261801};
     // Constructor creates a new map - only center and zoom are required.
     map = new google.maps.Map(document.getElementById('map'), {
         center: Oakland,
@@ -21,7 +18,6 @@ function initMap() {
     var largeInfowindow = new google.maps.InfoWindow();
     // The following group uses the location array to create an array of markers on initialize.
     for (var j = 0; j < firstLocations.length; j++) {
-        
         // Get the position from the location array.
         var position = firstLocations[j].location;
         //Get title from the locatons array
@@ -38,7 +34,7 @@ function initMap() {
             address: address,
             
         });
-        getData(marker);
+
         // Style the markers a bit. This will be our listing marker icon.
         var defaultIcon = makeMarkerIcon('0091ff');
 
@@ -53,7 +49,7 @@ function initMap() {
         // Create an onclick event to open the large infowindow at each marker.
         marker.addListener('click', function() {
             populateInfoWindow(this, largeInfowindow);
-            largeInfowindow.setContent(this.contentString);
+            largeInfowindow.setContent(contentString);
         });
         // Two event listeners - one for mouseover, one for mouseout,
         // to change the colors back and forth.
@@ -66,26 +62,25 @@ function initMap() {
         //drops markers onto map on load
 
         showListings();
-        
-    };
-    // This function populates the infowindow when the marker is clicked. We'll only allow
-    // one infowindow which will open at the marker that is clicked, and populate based
-    // on that markers position.
 
+        // This function populates the infowindow when the marker is clicked. We'll only allow
+        // one infowindow which will open at the marker that is clicked, and populate based
+        // on that markers position.
+    };
 
     function populateInfoWindow(marker, infowindow) {
         // Check to make sure the infowindow is not already opened on this marker.
         if (infowindow.marker != marker) {
-
+            
             // Set to current marker
             infowindow.marker = marker;
-
+            
             infowindow.setContent('<div class="title">' + marker.title + '</div>' + marker.contentString);
             // sets animation to bounce 2 times when marker is clicked
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-            setTimeout(function() {
-                marker.setAnimation(null);
-            }, 2000);
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                    setTimeout(function() {
+                    marker.setAnimation(null);
+                    }, 2000);      
             // Make sure the marker property is cleared if the infowindow is closed.
             infowindow.addListener('closeclick', function() {
                 infowindow.marker = null;
@@ -137,51 +132,52 @@ function initMap() {
 
 
     function getData(marker) {
-        // foursquare client-id and client-secret
-        var client_id = "2EVZTFM14QJ2T5M12PCFPIZS5Z5HYWPOM3RY5COEUZPGNDRK";
-        var client_secret = "G1IG5LPMZLDDA2A24LGVOZIG5JU3JXDGB5KWACGHDS5WGTKK";
+    // foursquare client-id and client-secret
+    var client_id = "2EVZTFM14QJ2T5M12PCFPIZS5Z5HYWPOM3RY5COEUZPGNDRK";
+    var client_secret = "G1IG5LPMZLDDA2A24LGVOZIG5JU3JXDGB5KWACGHDS5WGTKK";
 
-        // foursquare api url
-        var foursquareUrl = "https://api.foursquare.com/v2/venues/search";
-        var address, category, foursquareId, contentString;
+    // foursquare api url
+    var foursquareUrl = "https://api.foursquare.com/v2/venues/search";
+    var venue, address, category, foursquareId, contentString;
 
-        // ajax request - foursquare api data (https://developer.foursquare.com/docs/)
-        $.ajax({
-            //  type: 'GET',
-            url: foursquareUrl,
-            dataType: "json",
-            data: {
-                client_id: client_id,
-                client_secret: client_secret,
-                query: marker.title,
-                near: "Oakland, California",
-                v: 20170630
-            },
-            success: function(data) {
-                // get venue info
-                var venue = data.response.venues[0];
-                // get venue address info
-                address = venue.location.formattedAddress[0];
-                // gets link of place
-                foursquareId = "https://foursquare.com/v/" + venue.id;
-                // populates infowindow with api info
+    // ajax request - foursquare api data (https://developer.foursquare.com/docs/)
+    $.ajax({
+        //  type: 'GET',
+        url: foursquareUrl,
+        dataType: "json",
+        data: {
+            client_id: client_id,
+            client_secret: client_secret,
+            query: marker.title,
+            near: "Oakland, California",
+            v: 20170630
+        },
+        success: function(data) {
+            // get venue info
+            venue = data.response.venues[0];
+            // get venue address info
+            address = venue.location.formattedAddress[0];
+            // gets link of place
+            foursquareId = "https://foursquare.com/v/" + venue.id;
+            // populates infowindow with api info
+           /* if(markers.length === 0){
+            for(var i = 0; i < venue.length; i++){*/
+            contentString = "<div class='name'>" + "<span class='info'>" + title + "</span></div>" +
+                "<div class='address'>" + "<span class='info'>" + address + "</span></div>" +
+                "<div class='information'>" + "More info: " + "<a href='" + foursquareId + "'>" + "Click me" + "</a></div>";
 
-                contentString = "<div class='name'>" + "<span class='info'>" + venue.name + "</span></div>" +
-                    "<div class='address'>" + "<span class='info'>" + address + "</span></div>" +
-                    "<div class='information'>" + "More info: " + "<a href='" + foursquareId + "'>" + "Click me" + "</a></div>";
-
-                marker.contentString = contentString;
-
-            },
-            error: function() {
-                contentString = "<div class='name'>Data is currently not available. Please try again.</div>";
-            }
-        });
-
-        function mapError() {
-            alert("Map could not be loaded at this moment. Please try again");
+            marker.contentString;
+        /*}};*/
+        },
+        error: function() {
+            contentString = "<div class='name'>Data is currently not available. Please try again.</div>";
         }
-    };
+    });
+
+    function mapError() {
+        alert("Map could not be loaded at this moment. Please try again");
+    }
+};
 };
 //Location Constructor function
 var List = function(data) {
@@ -197,11 +193,11 @@ var AppViewModel = function() {
     this.allLocations = ko.observableArray();
     self.myList = ko.observable("");
 
-    for (i = 0; i < firstLocations.length; i++) {
+    for (i = 0; i < firstLocations.length; i++){
         var itemsLocation = new List(firstLocations[i]);
         self.allLocations.push(itemsLocation);
-
-
+    
+    
     };
 
     this.searches = ko.computed(function() {
