@@ -35,10 +35,8 @@ function initMap() {
             animation: google.maps.Animation.DROP,
             icon: defaultIcon,
             id: i,
-            address: address,
-            
-        });
-        getData(marker);
+            });
+
         // Style the markers a bit. This will be our listing marker icon.
         var defaultIcon = makeMarkerIcon('0091ff');
 
@@ -63,8 +61,9 @@ function initMap() {
         marker.addListener('mouseout', function() {
             this.setIcon(defaultIcon);
         });
+        /*calls the foursquare api request*/
+        getData(marker);
         //drops markers onto map on load
-
         showListings();
         
     };
