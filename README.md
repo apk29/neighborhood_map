@@ -7,9 +7,9 @@ You can either download the files and running the index.html file in a local bro
 
 
 Resources
-http://knockoutjs.com/
-https://developer.foursquare.com/
-http://getbootstrap.com/
-https://developer.foursquare.com/
-http://api.jquery.com/jquery.ajax/
-https://www.w3schools.com/jquery/ajax_ajax.asp 
+(http://knockoutjs.com/)<br>
+(https://developer.foursquare.com/)<br>
+(http://getbootstrap.com/)
+(https://developer.foursquare.com/)<br>
+(http://api.jquery.com/jquery.ajax/)<br>
+(https://www.w3schools.com/jquery/ajax_ajax.asp)<br>
