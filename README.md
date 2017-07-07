@@ -6,10 +6,10 @@ You can either download the files and running the index.html file in a local bro
 [live version](https://apk29.github.io/neighborhood_map/)
 
 
-Resources
+Resources<br>
 (http://knockoutjs.com/)<br>
 (https://developer.foursquare.com/)<br>
-(http://getbootstrap.com/)
+(http://getbootstrap.com/)<br>
 (https://developer.foursquare.com/)<br>
 (http://api.jquery.com/jquery.ajax/)<br>
 (https://www.w3schools.com/jquery/ajax_ajax.asp)<br>
