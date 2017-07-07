@@ -12,4 +12,4 @@ https://developer.foursquare.com/
 http://getbootstrap.com/
 https://developer.foursquare.com/
 http://api.jquery.com/jquery.ajax/
-https://www.w3schools.com/jquery/ajax_ajax.asp https://
+https://www.w3schools.com/jquery/ajax_ajax.asp 
