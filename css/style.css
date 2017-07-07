@@ -1,89 +1,44 @@
 html,
-      body {
-        font-family: Arial, sans-serif;
-        height: 100%;
-        margin: 0;
-        padding: 0;
+/*  * {
+    
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}*/
 
-      }
-
-      /*.container-fluid {
-        height: 100%;
-        position: relative;
-        background-color: #34495E;
-      }*/
-
-      input {
-        font-size: 12px;
-      }
-
-      h1 {
-        color: #525454;
-        font-size: 22px;
-        margin: 0 0 10px 0;
-        text-align: center;
-      }
-
-      #hide-listings,
-      #show-listings {
-        width: relative;
-      }
-
-      /*hr {
-        background: #D0D7D9;
-        height: 1px;
-        margin: 20px 0 20px 0;
-        border: none;
-      }*/
-
-      #map {
-        bottom:0px;
-        height: 100%;
-        /*left: 350px;*/
-        position: absolute;
-        right: 0px;
-      }
-
-      .options-box {
-        background: #fff;
-        border: 1px solid #999;
-        border-radius: 3px;
-        height: 100%;
-        line-height: 35px;
-        padding: 10px 10px 30px 10px;
-        text-align: left;
-        width: 340px;
-      }
-
-      #pano {
-        width: 200px;
-        height: 200px;
-      }
-
-      #search-within-time-text {
-        width: 84%;
-      }
-
-      .text {
-        font-size: 12px;
-      }
-
-      #toggle-drawing {
-        width: 27%;
-        position: relative;
-        margin-left: 10px;
-      }
-
-        #zoom-to-area-text {
-        position: relative;
-        width: 70%;
-      }
-
-      #zoom-to-area {
-        width: 24%;
-      }
-
-    /*.col-md-4 {
-      background-color: #566573;
-    }*/
+body {
+    font-family: Arial, sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+input {
+    font-size: 12px;
+}
+#hide-listings,
+#show-listings {
+    width: relative;
+}
+#map {
+    bottom: 0px;
+    height: 100%;
+    /*left: 350px;*/
+    
+    position: absolute;
+    right: 0px;
+}
+#container {
+    background-color: #85929E;
+    height: 100%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+#left-column {
+    padding-top: 2%;
+}
+#listings {
+    text-shadow: black;
+}
+#search-info {
+    text-align: center;
+    align-content: center;
 }
