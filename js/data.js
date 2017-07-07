@@ -1,5 +1,6 @@
 //////////////////////////////////////////Location Array//////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
+/* List view showing location names */
 var firstLocations = [{
     name: 'Wholefoods',
     location: {
@@ -29,11 +30,26 @@ var firstLocations = [{
     }, 
     isShown: ko.observable(true)
 }, {
+    name: 'Frank H. Ogawa Plaza',
+    location: {
+        lat: 37.8053,
+        lng: -122.2723
+    }, 
+    isShown: ko.observable(true)
+},{
+    name: 'Jack London Square',
+    location: {
+        lat: 37.7947,
+        lng: -122.2772
+    }, 
+    isShown: ko.observable(true)
+},{
     name: 'Great Western Power Company',
     location: {
         lat: 37.809787,
         lng: -122.2701297
     }, 
+    isShown: ko.observable(true)
    }, 
 ];
 

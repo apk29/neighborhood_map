@@ -32,12 +32,11 @@ input {
     padding-top: 15px;
     padding-bottom: 15px;
 }
+
 #left-column {
     padding-top: 2%;
 }
-#listings {
-    text-shadow: black;
-}
+
 #search-info {
     text-align: center;
     align-content: center;

@@ -10,13 +10,15 @@
     <body>
         <div class="container-fluid" id="container">
             <!-- <div class="row"> -->
+            
             <div class="col-xs-1 col-sm-4 col-md-4" id="left-column">
+                <h4>Places to Visit in Oakland</h4>
                 <input class="search-info" id="search-info" data-bind="textInput: myList, valueUpdate: 'afterkeydown'" placeholder="Filter">
-                <h3>
+               
                 <ul class="listings" id="listings" data-bind="foreach: searches">
                     <li data-bind="text: name, click: $root.clickMarker, visible: visible"></li>
                 </ul>
-                </h4>
+                
                 <input id="show-listings" type="button" value="Show Listings">
                 <input id="hide-listings" type="button" value="Hide Listings">
             </div>
