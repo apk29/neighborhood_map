@@ -4,12 +4,14 @@ html,
         height: 100%;
         margin: 0;
         padding: 0;
+
       }
 
-      .container {
+      /*.container-fluid {
         height: 100%;
         position: relative;
-      }
+        background-color: #34495E;
+      }*/
 
       input {
         font-size: 12px;
@@ -24,20 +26,20 @@ html,
 
       #hide-listings,
       #show-listings {
-        width: 60%;
+        width: relative;
       }
 
-      hr {
+      /*hr {
         background: #D0D7D9;
         height: 1px;
         margin: 20px 0 20px 0;
         border: none;
-      }
+      }*/
 
       #map {
         bottom:0px;
-        height: 99%;
-        left: 300px;
+        height: 100%;
+        /*left: 350px;*/
         position: absolute;
         right: 0px;
       }
@@ -81,6 +83,7 @@ html,
         width: 24%;
       }
 
-    .gm-style-iw {
-  color: #000; 
+    /*.col-md-4 {
+      background-color: #566573;
+    }*/
 }
