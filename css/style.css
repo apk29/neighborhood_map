@@ -35,6 +35,7 @@ input {
 
 #left-column {
     padding-top: 2%;
+    border-color: black;
 }
 
 #search-info {
