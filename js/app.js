@@ -222,7 +222,7 @@ var AppViewModel = function() {
     }, self);
 
     this.clickMarker = function(position) {
-        google.maps.event.trigger(position.marker, 'click');
+        google.maps.event.trigger(firstLocations.position, 'click');
     };
 
 };
