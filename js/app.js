@@ -22,11 +22,11 @@ function initMap() {
     
     // The following group uses the location array to create an array of markers on initialize.
     /*for (var j = 0; j < firstLocations.length; j++) {*/
-        firstLocations.forEach(function(marker){
+        firstLocations.forEach(function(mark){
         // Get the position from the location array.
-        var position = marker.location;
+        var position = mark.location;
         //Get title from the locatons array
-        var title = marker.name;
+        var title = mark.name;
 
         // Create a marker per location, and put into markers array.
         var marker = new google.maps.Marker({
