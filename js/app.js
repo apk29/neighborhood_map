@@ -24,9 +24,9 @@ function initMap() {
     /*for (var j = 0; j < firstLocations.length; j++) {*/
         firstLocations.forEach(function(marker){
         // Get the position from the location array.
-        var position = firstLocations.location;
+        var position = marker.location;
         //Get title from the locatons array
-        var title = firstLocations.name;
+        var title = marker.name;
 
         // Create a marker per location, and put into markers array.
         var marker = new google.maps.Marker({
@@ -200,7 +200,6 @@ var AppViewModel = function() {
     for (i = 0; i < firstLocations.length; i++) {
         var itemsLocation = new List(firstLocations[i]);
         self.allLocations.push(itemsLocation);
-
 
     }
 
