@@ -19,13 +19,14 @@ function initMap() {
 
     //creat window that will be used to populate window content
     var largeInfowindow = new google.maps.InfoWindow();
+    
     // The following group uses the location array to create an array of markers on initialize.
-    for (var j = 0; j < firstLocations.length; j++) {
-        
+    /*for (var j = 0; j < firstLocations.length; j++) {*/
+        firstLocations.forEach(function(marker){
         // Get the position from the location array.
-        var position = firstLocations[j].location;
+        var position = firstLocations.location;
         //Get title from the locatons array
-        var title = firstLocations[j].name;
+        var title = firstLocations.name;
 
         // Create a marker per location, and put into markers array.
         var marker = new google.maps.Marker({
@@ -47,7 +48,7 @@ function initMap() {
 
         // Push the marker to our array of markers.
         markers.push(marker);
-        appViewModel.allLocations()[j].marker = marker;
+        appViewModel.allLocations().marker = marker;
         // Create an onclick event to open the large infowindow at each marker.
         marker.addListener('click', function() {
             populateInfoWindow(this, largeInfowindow);
@@ -66,7 +67,7 @@ function initMap() {
         //drops markers onto map on load
         showListings();
         
-    };
+    });
     // This function populates the infowindow when the marker is clicked. We'll only allow
     // one infowindow which will open at the marker that is clicked, and populate based
     // on that markers position.
@@ -90,11 +91,11 @@ function initMap() {
                 infowindow.marker = null;
             });
             infowindow.open(map, marker);
-        };
+        }
 
         document.getElementById('show-listings').addEventListener('click', showListings);
         document.getElementById('hide-listings').addEventListener('click', hideListings);
-    };
+    }
     // This function takes in a COLOR, and then creates a new marker
     // icon of that color. The icon will be 21 px wide by 34 high, have an origin
     // of 0, 0 and be anchored at 10, 34).
@@ -107,7 +108,7 @@ function initMap() {
             new google.maps.Point(10, 34),
             new google.maps.Size(21, 34));
         return markerImage;
-    };
+    }
 
     // This function will loop through the markers array and display them all.
     function showListings() {
@@ -118,21 +119,21 @@ function initMap() {
             bounds.extend(markers[i].position);
         }
         map.fitBounds(bounds);
-    };
+    }
 
     // This function will loop through the listings and hide them all.
     function hideListings() {
         for (var i = 0; i < markers.length; i++) {
             markers[i].setMap(null);
         }
-    };
+    }
 
     // This function will loop through the listings and hide them all.
     function hideMarkers(markers) {
         for (var i = 0; i < markers.length; i++) {
             markers[i].setMap(null);
         }
-    };
+    }
 
 
     function getData(marker) {
@@ -180,8 +181,8 @@ function initMap() {
         function mapError() {
             alert("Map could not be loaded at this moment. Please try again");
         }
-    };
-};
+    }
+}
 //Location Constructor function
 var List = function(data) {
     var self = this;
@@ -201,7 +202,7 @@ var AppViewModel = function() {
         self.allLocations.push(itemsLocation);
 
 
-    };
+    }
 
     this.searches = ko.computed(function() {
         var filter = self.myList().toLowerCase();
