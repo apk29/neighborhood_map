@@ -48,7 +48,7 @@ function initMap() {
 
         // Push the marker to our array of markers.
         markers.push(marker);
-        appViewModel.allLocations().marker = marker;
+        appViewModel.allLocations()[i].marker = marker;
         // Create an onclick event to open the large infowindow at each marker.
         marker.addListener('click', function() {
             populateInfoWindow(this, largeInfowindow);
@@ -222,7 +222,7 @@ var AppViewModel = function() {
     }, self);
 
     this.clickMarker = function(position) {
-        google.maps.event.trigger(firstLocations.position, 'click');
+        google.maps.event.trigger(position.marker, 'click');
     };
 
 };
