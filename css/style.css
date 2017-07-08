@@ -11,6 +11,8 @@ body {
     margin: 0;
     padding: 0;
 }
+
+
 input {
     font-size: 12px;
 }
@@ -27,7 +29,7 @@ input {
     right: 0px;
 }
 #container {
-    background-color: #85929E;
+    background-color: #85929e;
     height: 100%;
     padding-top: 15px;
     padding-bottom: 15px;
