@@ -22,7 +22,7 @@ function initMap() {
     
     // The following group uses the location array to create an array of markers on initialize.
     /*for (var j = 0; j < firstLocations.length; j++) {*/
-        firstLocations.forEach(function(mark){
+        firstLocations.forEach(function(mark, index){
         // Get the position from the location array.
         var position = mark.location;
         //Get title from the locatons array
@@ -48,7 +48,7 @@ function initMap() {
 
         // Push the marker to our array of markers.
         markers.push(marker);
-        appViewModel.allLocations()[i].marker = marker;
+        appViewModel.allLocations()[index].marker = marker;
         // Create an onclick event to open the large infowindow at each marker.
         marker.addListener('click', function() {
             populateInfoWindow(this, largeInfowindow);
