@@ -148,11 +148,14 @@ function initMap() {
             error: function() {
                 contentString = "<div class='name'>Data is currently not available. Please try again.</div>";
                 marker.contentString = contentString;
+                appViewModel.fourSquareMessage('<h3 style="color: red">Data is currently not available. Please try again later.</h3>');
             }
         });
 
         function mapError() {
             alert("Map could not be loaded at this moment. Please try again");
+            marker.contentString = contentString;
+
         }
     }
 }
@@ -175,6 +178,9 @@ var AppViewModel = function() {
         self.allLocations.push(itemsLocation);
 
     }
+
+    this.fourSquareMessage = ko.observable("");
+    
 
     this.searches = ko.computed(function() {
         var filter = self.myList().toLowerCase();
