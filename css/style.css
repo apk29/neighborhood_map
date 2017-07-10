@@ -1,9 +1,14 @@
+#map {
+   outline: 1px solid red !important;
+}
+
 html,
-/*  * {
+  * {
     
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-}*/
+}
+
 
 body {
     font-family: Arial, sans-serif;
@@ -22,11 +27,12 @@ input {
 #map {
     bottom: 0px;
     height: 100%;
-    /*left: 350px;*/
-    
-    position: absolute;
+    z-index: 1;
+    position: relative;
     right: 0px;
 }
+
+
 #container {
     background-color: #85929e;
     height: 100%;
@@ -36,8 +42,14 @@ input {
 
 #left-column {
     padding-top: 2%;
-    border-color: black;
 }
+
+
+#right-column {
+    height: 100%;
+    z-index: 500;
+}
+
 
 #search-info {
     text-align: center;

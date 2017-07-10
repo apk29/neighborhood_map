@@ -147,6 +147,7 @@ function initMap() {
             },
             error: function() {
                 contentString = "<div class='name'>Data is currently not available. Please try again.</div>";
+                marker.contentString = contentString;
             }
         });
 
@@ -213,6 +214,7 @@ var AppViewModel = function() {
 
     this.clickMarker = function(position) {
         google.maps.event.trigger(position.marker, 'click');
+    //show/hide listings of markers    
     };
     this.showListings = function() {
         showListings();
@@ -229,7 +231,11 @@ var AppViewModel = function() {
             markers[i].setMap(map);
             bounds.extend(markers[i].position);
         }
-        map.fitBounds(bounds);
+        /*map.fitBounds(bounds);*/
+        /*Using this to map display responsively*/
+        google.maps.event.addDomListener(window, 'resize', function() {
+        map.fitBounds(bounds); // `bounds` is a `LatLngBounds` object
+});
     }
 
     // This function will loop through the listings and hide them all.
