@@ -35,7 +35,7 @@ function initMap() {
             map: map,
             animation: google.maps.Animation.DROP,
             icon: defaultIcon,
-            id: i,
+            id: index,
         });
 
 
