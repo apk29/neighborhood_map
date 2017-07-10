@@ -152,11 +152,11 @@ function initMap() {
             }
         });       
     }
-};
+}
             function mapError() {
                 alert("Map could not be loaded at this moment. Please try again");
                 /*marker.contentString = contentString;*/
-        };
+        }
 //Location Constructor function
 var List = function(data) {
     var self = this;
