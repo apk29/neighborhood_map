@@ -19,10 +19,10 @@ function initMap() {
 
     //creat window that will be used to populate window content
     var largeInfowindow = new google.maps.InfoWindow();
-    
+
     // The following group uses the location array to create an array of markers on initialize.
     /*for (var j = 0; j < firstLocations.length; j++) {*/
-        firstLocations.forEach(function(mark, index){
+    firstLocations.forEach(function(mark, index) {
         // Get the position from the location array.
         var position = mark.location;
         //Get title from the locatons array
@@ -36,7 +36,8 @@ function initMap() {
             animation: google.maps.Animation.DROP,
             icon: defaultIcon,
             id: i,
-            });
+        });
+
 
         // Style the markers a bit. This will be our listing marker icon.
         var defaultIcon = makeMarkerIcon('0091ff');
@@ -64,9 +65,8 @@ function initMap() {
         });
         /*calls the foursquare api request*/
         getData(marker);
-        //drops markers onto map on load
-        showListings();
-        
+
+
     });
     // This function populates the infowindow when the marker is clicked. We'll only allow
     // one infowindow which will open at the marker that is clicked, and populate based
@@ -93,8 +93,6 @@ function initMap() {
             infowindow.open(map, marker);
         }
 
-        document.getElementById('show-listings').addEventListener('click', showListings);
-        document.getElementById('hide-listings').addEventListener('click', hideListings);
     }
     // This function takes in a COLOR, and then creates a new marker
     // icon of that color. The icon will be 21 px wide by 34 high, have an origin
@@ -109,32 +107,6 @@ function initMap() {
             new google.maps.Size(21, 34));
         return markerImage;
     }
-
-    // This function will loop through the markers array and display them all.
-    function showListings() {
-        var bounds = new google.maps.LatLngBounds();
-        // Extend the boundaries of the map for each marker and display the marker
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(map);
-            bounds.extend(markers[i].position);
-        }
-        map.fitBounds(bounds);
-    }
-
-    // This function will loop through the listings and hide them all.
-    function hideListings() {
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(null);
-        }
-    }
-
-    // This function will loop through the listings and hide them all.
-    function hideMarkers(markers) {
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(null);
-        }
-    }
-
 
     function getData(marker) {
         // foursquare client-id and client-secret
@@ -209,13 +181,31 @@ var AppViewModel = function() {
             self.allLocations().forEach(function(itemsLocation) {
                 itemsLocation.visible(true);
             });
+            //making markers disappear with filter
+            for (var i = 0; i < self.allLocations().length; i++) {
+                if (markers.length > 0) {
+                    markers[i].setVisible(true);
+
+                }
+            }
             return self.allLocations();
         } else {
             return ko.utils.arrayFilter(self.allLocations(), function(itemsLocation) {
                 var string = itemsLocation.name.toLowerCase();
                 var result = (string.search(filter) >= 0);
                 itemsLocation.visible(result);
+                //making markers disappear with filter
+                for (var i = 0; i < self.allLocations().length; i++) {
+                    var currentMarker = markers[i].title.toLowerCase();
+
+                    if (currentMarker.includes(filter)) {
+                        markers[i].setVisible(true);
+                    } else {
+                        markers[i].setVisible(false);
+                    }
+                }
                 return result;
+
             });
         }
 
@@ -224,7 +214,37 @@ var AppViewModel = function() {
     this.clickMarker = function(position) {
         google.maps.event.trigger(position.marker, 'click');
     };
+    this.showListings = function() {
+        showListings();
+    };
+    this.hideListings = function() {
+        hideListings();
+    };
 
+    // This function will loop through the markers array and display them all.
+    function showListings() {
+        var bounds = new google.maps.LatLngBounds();
+        // Extend the boundaries of the map for each marker and display the marker
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(map);
+            bounds.extend(markers[i].position);
+        }
+        map.fitBounds(bounds);
+    }
+
+    // This function will loop through the listings and hide them all.
+    function hideListings() {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+        }
+    }
+
+    // This function will loop through the listings and hide them all.
+    function hideMarkers(markers) {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+        }
+    }
 };
 
 appViewModel = new AppViewModel();

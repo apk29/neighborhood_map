@@ -9,20 +9,18 @@
     </head>
     <body>
         <div class="container-fluid" id="container">
-            <!-- <div class="row"> -->
+            <div class="row">
             
-            <div class="col-xs-1 col-sm-4 col-md-4" id="left-column">
+            <div class="col-sm-4 col-md-4 col-xs-4" id="left-column">
                 <h4>Places to Visit in Oakland</h4>
                 <input class="search-info" id="search-info" data-bind="textInput: myList, valueUpdate: 'afterkeydown'" placeholder="Filter">
-               
                 <ul class="listings" id="listings" data-bind="foreach: searches">
                     <li data-bind="text: name, click: $root.clickMarker, visible: visible"></li>
                 </ul>
-                
-                <input id="show-listings" type="button" value="Show Listings">
-                <input id="hide-listings" type="button" value="Hide Listings">
+                <input class="show-listings" type="button" value="Show Listings" data-bind="click: showListings">
+                <input class="hide-listings" type="button" value="Hide Listings" data-bind="click: hideListings">  
             </div>
-            <div class="col-xs-7 col-sm-8 col-md-8" id="map">
+            <div class="col-xs-8 col-sm-8 col-md-8" id="map"></div>
             </div>
         </div>
         
