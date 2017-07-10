@@ -85,7 +85,7 @@ function initMap() {
             marker.setAnimation(google.maps.Animation.BOUNCE);
             setTimeout(function() {
                 marker.setAnimation(null);
-            }, 2000);
+            }, 1400);
             // Make sure the marker property is cleared if the infowindow is closed.
             infowindow.addListener('closeclick', function() {
                 infowindow.marker = null;
@@ -150,15 +150,13 @@ function initMap() {
                 marker.contentString = contentString;
                 appViewModel.fourSquareMessage('<h3 style="color: red">Data is currently not available. Please try again later.</h3>');
             }
-        });
-
-        function mapError() {
-            alert("Map could not be loaded at this moment. Please try again");
-            marker.contentString = contentString;
-
-        }
+        });       
     }
-}
+};
+            function mapError() {
+                alert("Map could not be loaded at this moment. Please try again");
+                /*marker.contentString = contentString;*/
+        };
 //Location Constructor function
 var List = function(data) {
     var self = this;
@@ -173,7 +171,7 @@ var AppViewModel = function() {
     this.allLocations = ko.observableArray();
     self.myList = ko.observable("");
 
-    for (i = 0; i < firstLocations.length; i++) {
+    for (var i = 0; i < firstLocations.length; i++) {
         var itemsLocation = new List(firstLocations[i]);
         self.allLocations.push(itemsLocation);
 
