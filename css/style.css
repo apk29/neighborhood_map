@@ -9,40 +9,51 @@ body,
 .row {
     height: 100%;
 }
+
 body {
     font-family: Arial, sans-serif;
     height: 100%;
     margin: 0;
     padding: 2%;
 }
+
 input {
     font-size: 12px;
 }
+
 #hide-listings,
 #show-listings {
     width: relative;
 }
+
 #map {
     bottom: 0px;
     height: 100%;
     z-index: 1;
     position: relative;
     right: 0px;
-    outline: 1px solid red !important;
+    outline: 1px solid red;
 }
+
 #container {
     background-color: #85929e;
     height: 100%;
     padding-top: 15px;
     padding-bottom: 15px;
 }
+
 #left-column {
+    outline: 1px solid red;
+    padding-left: 7%;
     padding-top: 2%;
+    padding-bottom: 2%;
 }
+
 #right-column {
     height: 100%;
     z-index: 500;
 }
+
 #search-info {
     text-align: center;
     align-content: center;
